@@ -123,7 +123,8 @@ RUN { \
 # Copy kickstart files to website
 ADD ./site/kickstart /var/www/site
 
-# TODO Copy archive file from joomla site
+# ./site/backup should be empty
+ADD ./site/backup /var/www/site
 
 # set ownership of files
 RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/site
