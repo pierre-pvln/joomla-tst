@@ -1,0 +1,39 @@
+##
+# Ingore the following files for Git
+##
+
+##
+# Git scripts
+##
+#.gitignore
+git_project_initialize.sh
+
+##
+# Command scripts not needed in linux 
+##
+*.cmd
+
+##
+# windows files 
+##
+Thumbs.db
+
+
+##
+# output files
+##
+
+
+##
+# logging files
+##
+
+
+##
+# info files
+##
+
+##
+# site backup files
+##
+/site/backup/*
