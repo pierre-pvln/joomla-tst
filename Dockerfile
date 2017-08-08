@@ -42,6 +42,8 @@ RUN a2enmod rewrite
 
 # Manually set up the apache environment variables
 #
+# TODO: Find a way to use variables from script
+#
 ENV APACHE_RUN_USER=www-data \
     APACHE_RUN_GROUP=www-data \
     APACHE_LOG_DIR=/var/log/apache2 \
@@ -54,20 +56,23 @@ ENV APACHE_RUN_USER=www-data \
 #
 EXPOSE 80
 
-CMD /bin/bash env
-
 # Copy this repo into place
 #
-#ADD ./site/default /var/www/site
 ADD ./site/default /var/www/$my_apache2_sitename
 
 # set ownership of files
 #
-#RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/site
 RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/$my_apache2_sitename
 
 # Update the default apache site with the config we created.
+#
 ADD ./configs/apache2-config.conf /etc/apache2/sites-enabled/000-default.conf
+
+# TODO: Change folder to sitename 
+#
+RUN sed -i "s/site/$my_apache2_sitename" /etc/apache2/sites-enabled/000-default.conf
+
+# TODO CHANGE SERVERNAME
 
 # =========================
 # END OF INSTALLING APACHE2
@@ -132,12 +137,11 @@ RUN { \
 # ======================================
 
 # Copy kickstart files to website
-ADD ./site/kickstart /var/www/site
+#
+ADD ./site/kickstart /var/www/$my_apache2_sitename
 
-# ./site/backup should be empty
-ADD ./site/backup /var/www/site
-
-# set ownership of files
+# Set ownership of files or kickstart will not work properly
+#
 RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/$my_apache2_sitename
 
 # ======================================
