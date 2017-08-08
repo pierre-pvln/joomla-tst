@@ -10,5 +10,3 @@ echo "Acces running container in CLI"
 echo "=============="
 
 docker exec -it $my_container_name /bin/bash
-
-

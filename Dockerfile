@@ -130,7 +130,6 @@ RUN { \
 # Copy kickstart files to website
 ADD ./site/kickstart /var/www/site
 
-# Copy kickstart files to website
 # ./site/backup should be empty
 ADD ./site/backup /var/www/site
 
