@@ -6,10 +6,10 @@ MAINTAINER Pierre Veelen <pierre@pvln.nl>
 # START OF INSTALLING UTILITIES AND DEFAULTS
 # ==========================================
 
-#RUN sudo apt-get update && sudo apt-get install -y \
-#    apt-utils && \
-#    sudo apt-get clean && \ 
-#	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN sudo apt-get update && sudo apt-get install -y \
+    apt-utils && \
+    sudo apt-get clean && \ 
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 	 
 #RUN sudo apt-get update && sudo apt-get install -y \
 #     apt-utils \
@@ -30,6 +30,10 @@ MAINTAINER Pierre Veelen <pierre@pvln.nl>
 # Inspiration: https://writing.pupius.co.uk/apache-and-php-on-docker-44faef716150
 #
 
+# get variables from commandline
+ARG my_apache2_servername=default-server \ 
+    my_apache2_sitename=default-site
+
 # Install apache2 and cleanup afterwards
 #
 RUN sudo apt-get update && sudo apt-get install -y \
@@ -48,9 +52,10 @@ ENV APACHE_RUN_USER=www-data \
     APACHE_RUN_GROUP=www-data \
     APACHE_LOG_DIR=/var/log/apache2 \
     APACHE_LOCK_DIR=/var/lock/apache2 \
-    APACHE_PID_FILE=/var/run/apache2.pid \
-    my_apache2_servername='raspberrypi' \
-    my_apache2_sitename='docker-tst'
+    APACHE_PID_FILE=/var/run/apache2.pid 
+#    my_apache2_servername=$my_apache2_servername
+#    my_apache2_sitename=$my_apache2_sitename
+
 
 # Expose apache2 on port 80
 #
@@ -68,9 +73,9 @@ RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/$my_apache2_sitename
 #
 ADD ./configs/apache2-config.conf /etc/apache2/sites-enabled/000-default.conf
 
-# TODO: Change folder to sitename -> change  var/www/site to var/www/$my_apache2_sitename
+# Change folder to sitename -> change  var/www/site to var/www/$my_apache2_sitename
 # sed -i "s/TextFrom/TextTo/" inWhichFile
-# \/ is used to escape the / 
+# \/ is used to escape the / in the file path
 #
 RUN sed -i "s/var\/www\/site/var\/www\/$my_apache2_sitename/" /etc/apache2/sites-enabled/000-default.conf
 
@@ -84,6 +89,8 @@ RUN sed -i "s/var\/www\/site/var\/www\/$my_apache2_sitename/" /etc/apache2/sites
 # START OF INSTALLING PHP5
 # ========================
 
+# Install php5 and cleanup afterwards
+#
 RUN sudo apt-get update &&  sudo apt-get install -y \
 	 libapache2-mod-php5 \
 	 php5 \ 
@@ -96,10 +103,12 @@ RUN sudo apt-get update &&  sudo apt-get install -y \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 #Update the PHP.ini file, enable <? ?> tags and quieten logging.
+#
 RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini
 RUN sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php5/apache2/php.ini
 
 # Enable apache mods for PHP.
+#
 RUN a2enmod php5
 
 # ======================
@@ -113,6 +122,9 @@ RUN a2enmod php5
 # Inspiration: https://stackoverflow.com/questions/32145650/how-to-set-mysql-username-in-dockerfile/32146887#32146887
 #
 
+
+# Install mysql-server and cleanup afterwards
+#
 RUN { \
         echo mysql-server-5.5 mysql-server/root_password password 'root'; \
         echo mysql-server-5.5 mysql-server/root_password_again password 'root'; \

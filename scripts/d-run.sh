@@ -4,15 +4,9 @@
 source set_bld.sh
 source set_run.sh
 
-
-echo "=============="
-echo "Buildname: " $my_build_name
-echo "=============="
-echo "Containername: " $my_container_name
-echo "=============="
-echo "Connect to 192.168.2.8 in browser" 
-echo "=============="
-
+echo "==============="
+echo "Info:           Connect to 192.168.2.8 in browser" 
+echo "==============="
 
 # inspiration: https://stackoverflow.com/questions/38576337/execute-bash-command-if-docker-container-does-not-exist
 #
