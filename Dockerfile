@@ -52,6 +52,8 @@ ENV APACHE_RUN_USER=www-data \
 #
 EXPOSE 80
 
+CMD env
+
 # Copy this repo into place
 #
 #ADD ./site/default /var/www/site
