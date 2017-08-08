@@ -68,9 +68,11 @@ RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/$my_apache2_sitename
 #
 ADD ./configs/apache2-config.conf /etc/apache2/sites-enabled/000-default.conf
 
-# TODO: Change folder to sitename 
+# TODO: Change folder to sitename -> change  var/www/site to var/www/$my_apache2_sitename
+# sed -i "s/TextFrom/TextTo/" inWhichFile
+# \/ is used to escape the / 
 #
-RUN sed -i "s/site/$my_apache2_sitename" /etc/apache2/sites-enabled/000-default.conf
+RUN sed -i "s/var\/www\/site/var\/www\/$my_apache2_sitename/" /etc/apache2/sites-enabled/000-default.conf
 
 # TODO CHANGE SERVERNAME
 
