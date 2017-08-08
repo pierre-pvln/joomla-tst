@@ -30,9 +30,9 @@ RUN sudo apt-get update && sudo apt-get install -y \
 # Inspiration: https://writing.pupius.co.uk/apache-and-php-on-docker-44faef716150
 #
 
-# get variables from commandline
-ARG my_apache2_servername=default-server  
-ARG my_apache2_sitename=default-site
+# get variables from commandline and set default values
+ARG my_apache2_servername=def-server-name \ 
+    my_apache2_sitename=def-site-name
 
 # Install apache2 and cleanup afterwards
 #
@@ -53,9 +53,6 @@ ENV APACHE_RUN_USER=www-data \
     APACHE_LOG_DIR=/var/log/apache2 \
     APACHE_LOCK_DIR=/var/lock/apache2 \
     APACHE_PID_FILE=/var/run/apache2.pid 
-#    my_apache2_servername=$my_apache2_servername
-#    my_apache2_sitename=$my_apache2_sitename
-
 
 # Expose apache2 on port 80
 #
