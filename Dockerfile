@@ -1,4 +1,3 @@
-
 FROM resin/rpi-raspbian
 
 MAINTAINER Pierre Veelen <pierre@pvln.nl>
@@ -31,15 +30,18 @@ RUN sudo apt-get update && sudo apt-get install -y \
 # Inspiration: https://writing.pupius.co.uk/apache-and-php-on-docker-44faef716150
 #
 
+# Install apache2 and cleanup afterwards
+#
 RUN sudo apt-get update && sudo apt-get install -y \
      apache2 && \
     sudo apt-get clean && \ 
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Enable apache mods.
-RUN a2enmod rewrite
+#RUN a2enmod rewrite
 
 # Manually set up the apache environment variables
+#
 ENV APACHE_RUN_USER=www-data \
     APACHE_RUN_GROUP=www-data \
     APACHE_LOG_DIR=/var/log/apache2 \
@@ -47,13 +49,18 @@ ENV APACHE_RUN_USER=www-data \
     APACHE_PID_FILE=/var/run/apache2.pid
 
 # Expose apache2 on port 80
+#
 EXPOSE 80
 
 # Copy this repo into place
-ADD ./www /var/www/site
+#
+#ADD ./site/default /var/www/site
+ADD ./site/default /var/www/$my_apache2_sitename
+
 # set ownership of files
-RUN env
-RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/site
+#
+#RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/site
+RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/$my_apache2_sitename
 
 # Update the default apache site with the config we created.
 ADD ./configs/apache2-config.conf /etc/apache2/sites-enabled/000-default.conf
@@ -128,7 +135,7 @@ ADD ./site/kickstart /var/www/site
 ADD ./site/backup /var/www/site
 
 # set ownership of files
-RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/site
+RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/$my_apache2_sitename
 
 # ======================================
 # END OF INSTALLING JOOMLA! RESTORE FILES

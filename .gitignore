@@ -33,7 +33,3 @@ Thumbs.db
 # info files
 ##
 
-##
-# contents of folder with site backup files
-##
-/site/backup/*
