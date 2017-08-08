@@ -31,8 +31,8 @@ RUN sudo apt-get update && sudo apt-get install -y \
 #
 
 # get variables from commandline and set default values
-ARG my_apache2_servername=def-server-name \ 
-    my_apache2_sitename=def-site-name
+ARG my_apache2_servername=def-server-name
+ARG my_apache2_sitename=def-site-name
 
 # Install apache2 and cleanup afterwards
 #
