@@ -7,17 +7,17 @@ MAINTAINER Pierre Veelen <pierre@pvln.nl>
 # ==========================================
 
 #RUN sudo apt-get update && sudo apt-get install -y \
-#     apt-utils && \
-#	 sudo apt-get clean && \ 
+#    apt-utils && \
+#    sudo apt-get clean && \ 
 #	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 	 
-RUN sudo apt-get update && sudo apt-get install -y \
-     apt-utils \
-	 curl \
-     wget \
-     git && \
-	sudo apt-get clean && \ 
-	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+#RUN sudo apt-get update && sudo apt-get install -y \
+#     apt-utils \
+#	 curl \
+#     wget \
+#     git && \
+#	sudo apt-get clean && \ 
+#	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # =============================
 # END OF UTILITIES AND DEFAULTS
@@ -38,7 +38,7 @@ RUN sudo apt-get update && sudo apt-get install -y \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Enable apache mods.
-#RUN a2enmod rewrite
+RUN a2enmod rewrite
 
 # Manually set up the apache environment variables
 #
@@ -46,13 +46,15 @@ ENV APACHE_RUN_USER=www-data \
     APACHE_RUN_GROUP=www-data \
     APACHE_LOG_DIR=/var/log/apache2 \
     APACHE_LOCK_DIR=/var/lock/apache2 \
-    APACHE_PID_FILE=/var/run/apache2.pid
+    APACHE_PID_FILE=/var/run/apache2.pid \
+    my_apache2_servername='raspberrypi' \
+    my_apache2_sitename='docker-tst'
 
 # Expose apache2 on port 80
 #
 EXPOSE 80
 
-CMD env
+CMD /bin/bash env
 
 # Copy this repo into place
 #
