@@ -31,8 +31,8 @@ RUN sudo apt-get update && sudo apt-get install -y \
 #
 
 # get variables from commandline and set default values
-ARG my_apache2_servername=def-server-name
-ARG my_apache2_sitename=def-site-name
+ARG my_apache2_servername='def-server-name'
+ARG my_apache2_sitename='def-site-name'
 
 # Install apache2 and cleanup afterwards
 #
@@ -119,7 +119,7 @@ RUN a2enmod php5
 # Inspiration: https://stackoverflow.com/questions/32145650/how-to-set-mysql-username-in-dockerfile/32146887#32146887
 #
 
-ARG pw-mysql-server-root=def-root 
+ARG pw-mysql-server-root='def-root'
 
 # Install mysql-server and cleanup afterwards
 #
