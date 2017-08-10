@@ -119,7 +119,7 @@ RUN a2enmod php5
 # Inspiration: https://stackoverflow.com/questions/32145650/how-to-set-mysql-username-in-dockerfile/32146887#32146887
 #
 
-ARG pw-mysql-server-root='def-root'
+ARG my_mysql-server_root_password='def-root'
 
 # Install mysql-server and cleanup afterwards
 #
@@ -133,8 +133,8 @@ ARG pw-mysql-server-root='def-root'
 #    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN { \
-        echo mysql-server-5.5 mysql-server/root_password password $pw-mysql-server-root; \
-        echo mysql-server-5.5 mysql-server/root_password_again password $pw-mysql-server-root; \
+        echo mysql-server-5.5 mysql-server/root_password password $my_mysql-server_root_password; \
+        echo mysql-server-5.5 mysql-server/root_password_again password $my_mysql-server_root_password; \
     } | sudo debconf-set-selections \
     && sudo apt-get update && sudo apt-get install -y \
         mysql-server && \
