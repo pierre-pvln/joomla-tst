@@ -132,7 +132,8 @@ ARG my_mysql-server_root_password='def-root'
 #    sudo apt-get clean && \ 
 #    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN { \
+RUN echo $my_mysql-server_root_password && \
+    { \
         echo mysql-server-5.5 mysql-server/root_password password $my_mysql-server_root_password; \
         echo mysql-server-5.5 mysql-server/root_password_again password $my_mysql-server_root_password; \
     } | sudo debconf-set-selections \
@@ -153,13 +154,25 @@ RUN { \
 # END OF INSTALLING MYSQL
 # =======================
 
+# ================================
+# START OF INSTALLING TEST SCRIPTS
+# ================================
+
+# Copy mySQL testscript
+#
+ADD ./site/testscripts /var/www/$my_apache2_sitename
+
+# ================================
+# START OF INSTALLING TEST SCRIPTS
+# ================================
+
 # ======================================
 # START OF INSTALLING JOOMLA! RESTORE FILES
 # ======================================
 
 # Copy kickstart files to website
 #
-ADD ./site/kickstart /var/www/$my_apache2_sitename
+ADD ./site/kickstart /tmp
 
 # Set ownership of files or kickstart will not work properly
 #
