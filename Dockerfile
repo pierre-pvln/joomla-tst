@@ -183,3 +183,4 @@ ENTRYPOINT []
 #CMD /usr/sbin/apache2ctl -D FOREGROUND
 
 CMD /bin/bash
+
