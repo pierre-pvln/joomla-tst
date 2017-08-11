@@ -137,6 +137,11 @@ RUN { \
         mysql-server && \
     sudo apt-get clean && \ 
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+#
+#https://github.com/docker/for-linux/issues/72
+#
+RUN find /var/lib/mysql -type f -exec touch {} \; && service mysql start
 	
 #
 # TODO: include mysql_secure_installation in container 
