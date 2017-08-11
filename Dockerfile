@@ -111,12 +111,12 @@ RUN a2enmod php5
 # Inspiration: https://stackoverflow.com/questions/32145650/how-to-set-mysql-username-in-dockerfile/32146887#32146887
 #
 
-ARG my_mysql_server_root_password='def-root'
+##ARG my_mysql_server_root_password='def-root'
 
 #DEBUG
 #=====
 # save info to file
-RUN echo $my_mysql_server_root_password > /root/test.txt
+##RUN echo $my_mysql_server_root_password > /root/test.txt
 
 #RUN { \
 #        echo mysql-server-5.5 mysql-server/root_password password $my_mysql_server_root_password; \
@@ -129,20 +129,15 @@ RUN echo $my_mysql_server_root_password > /root/test.txt
 
 # Install mysql-server and cleanup afterwards
 #
-RUN { \
-        echo mysql-server-5.5 mysql-server/root_password password 'root'; \
-        echo mysql-server-5.5 mysql-server/root_password_again password 'root'; \
-    } | sudo debconf-set-selections \
-    && sudo apt-get update && sudo apt-get install -y \
-        mysql-server && \
-    sudo apt-get clean && \ 
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+##RUN { \
+##        echo mysql-server-5.5 mysql-server/root_password password 'root'; \
+##        echo mysql-server-5.5 mysql-server/root_password_again password 'root'; \
+##    } | sudo debconf-set-selections \
+##    && sudo apt-get update && sudo apt-get install -y \
+##        mysql-server && \
+##    sudo apt-get clean && \ 
+##    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-#
-#https://github.com/docker/for-linux/issues/72
-#
-RUN find /var/lib/mysql -type f -exec touch {} \; && service mysql start
-	
 #
 # TODO: include mysql_secure_installation in container 
 #
