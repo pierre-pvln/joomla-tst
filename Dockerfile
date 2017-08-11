@@ -119,7 +119,7 @@ RUN a2enmod php5
 # Inspiration: https://stackoverflow.com/questions/32145650/how-to-set-mysql-username-in-dockerfile/32146887#32146887
 #
 
-ARG my_mysql-server_root_password='def-root'
+ARG my_mysql_server_root_password='def-root'
 
 # Install mysql-server and cleanup afterwards
 #
@@ -132,10 +132,22 @@ ARG my_mysql-server_root_password='def-root'
 #    sudo apt-get clean && \ 
 #    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN echo $my_mysql-server_root_password && \
-    { \
-        echo mysql-server-5.5 mysql-server/root_password password $my_mysql-server_root_password; \
-        echo mysql-server-5.5 mysql-server/root_password_again password $my_mysql-server_root_password; \
+#DEBUG
+#=====
+RUN echo $my_mysql_server_root_password > /root/test.txt
+
+#RUN { \
+#        echo mysql-server-5.5 mysql-server/root_password password $my_mysql_server_root_password; \
+#        echo mysql-server-5.5 mysql-server/root_password_again password $my_mysql_server_root_password; \
+#    } | sudo debconf-set-selections \
+#    && sudo apt-get update && sudo apt-get install -y \
+#        mysql-server && \
+#    sudo apt-get clean && \ 
+#    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN { \
+        echo mysql-server-5.5 mysql-server/root_password password 'root'; \
+        echo mysql-server-5.5 mysql-server/root_password_again password 'root'; \
     } | sudo debconf-set-selections \
     && sudo apt-get update && sudo apt-get install -y \
         mysql-server && \
@@ -150,21 +162,16 @@ RUN echo $my_mysql-server_root_password && \
 #    sudo apt-get clean && \ 
 #    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 	
+#TEST
+#====
+# Copy mySQL testscript to home directory
+#
+ADD ./site/testscripts /root
+RUN chmod +x /root/*.sh
+
 # =======================
 # END OF INSTALLING MYSQL
 # =======================
-
-# ================================
-# START OF INSTALLING TEST SCRIPTS
-# ================================
-
-# Copy mySQL testscript
-#
-ADD ./site/testscripts /var/www/$my_apache2_sitename
-
-# ================================
-# START OF INSTALLING TEST SCRIPTS
-# ================================
 
 # ======================================
 # START OF INSTALLING JOOMLA! RESTORE FILES
@@ -172,7 +179,7 @@ ADD ./site/testscripts /var/www/$my_apache2_sitename
 
 # Copy kickstart files to website
 #
-ADD ./site/kickstart /tmp
+ADD ./site/kickstart /var/www/$my_apache2_sitename
 
 # Set ownership of files or kickstart will not work properly
 #
