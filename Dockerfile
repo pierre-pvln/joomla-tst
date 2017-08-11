@@ -11,14 +11,6 @@ RUN sudo apt-get update && sudo apt-get install -y \
     sudo apt-get clean && \ 
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 	 
-#RUN sudo apt-get update && sudo apt-get install -y \
-#     apt-utils \
-#	 curl \
-#     wget \
-#     git && \
-#	sudo apt-get clean && \ 
-#	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 # =============================
 # END OF UTILITIES AND DEFAULTS
 # =============================
@@ -76,7 +68,7 @@ ADD ./configs/apache2-config.conf /etc/apache2/sites-enabled/000-default.conf
 #
 RUN sed -i "s/var\/www\/site/var\/www\/$my_apache2_sitename/" /etc/apache2/sites-enabled/000-default.conf
 
-# TODO CHANGE SERVERNAME
+# TODO CHANGE WEBSITE SERVERNAME TO PREVENT WARNING
 
 # =========================
 # END OF INSTALLING APACHE2
@@ -121,19 +113,9 @@ RUN a2enmod php5
 
 ARG my_mysql_server_root_password='def-root'
 
-# Install mysql-server and cleanup afterwards
-#
-#RUN { \
-#        echo mysql-server-5.5 mysql-server/root_password password 'root'; \
-#        echo mysql-server-5.5 mysql-server/root_password_again password 'root'; \
-#    } | sudo debconf-set-selections \
-#    && sudo apt-get update && sudo apt-get install -y \
-#        mysql-server && \
-#    sudo apt-get clean && \ 
-#    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 #DEBUG
 #=====
+# save info to file
 RUN echo $my_mysql_server_root_password > /root/test.txt
 
 #RUN { \
@@ -145,6 +127,8 @@ RUN echo $my_mysql_server_root_password > /root/test.txt
 #    sudo apt-get clean && \ 
 #    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# Install mysql-server and cleanup afterwards
+#
 RUN { \
         echo mysql-server-5.5 mysql-server/root_password password 'root'; \
         echo mysql-server-5.5 mysql-server/root_password_again password 'root'; \
