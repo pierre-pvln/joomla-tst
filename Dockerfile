@@ -129,14 +129,18 @@ RUN a2enmod php5
 
 # Install mysql-server and cleanup afterwards
 #
-##RUN { \
-##        echo mysql-server-5.5 mysql-server/root_password password 'root'; \
-##        echo mysql-server-5.5 mysql-server/root_password_again password 'root'; \
-##    } | sudo debconf-set-selections \
-##    && sudo apt-get update && sudo apt-get install -y \
-##        mysql-server && \
-##    sudo apt-get clean && \ 
-##    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN { \
+        echo mysql-server-5.5 mysql-server/root_password password 'root'; \
+        echo mysql-server-5.5 mysql-server/root_password_again password 'root'; \
+    } | sudo debconf-set-selections \
+    && sudo apt-get update && sudo apt-get install -y \
+        mysql-server && \
+    sudo apt-get clean && \ 
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Start MYSQL
+# 
+RUN /etc/init.d/mysql start
 
 #
 # TODO: include mysql_secure_installation in container 
