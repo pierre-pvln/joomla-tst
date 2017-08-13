@@ -141,7 +141,6 @@ RUN { \
 # Start MYSQL
 RUN chown -R mysql /var/lib/mysql
 RUN chgrp -R mysql /var/lib/mysql
-RUN service mysql start# 
 
 #
 # TODO: include mysql_secure_installation in container 
