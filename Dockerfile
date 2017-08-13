@@ -139,8 +139,9 @@ RUN { \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Start MYSQL
-# 
-# RUN /etc/init.d/mysql start
+RUN chown -R mysql /var/lib/mysql
+RUN chgrp -R mysql /var/lib/mysql
+RUN service mysql start# 
 
 #
 # TODO: include mysql_secure_installation in container 
