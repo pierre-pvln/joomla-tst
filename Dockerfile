@@ -140,7 +140,7 @@ RUN { \
 
 # Start MYSQL
 # 
-RUN /etc/init.d/mysql start
+# RUN /etc/init.d/mysql start
 
 #
 # TODO: include mysql_secure_installation in container 
