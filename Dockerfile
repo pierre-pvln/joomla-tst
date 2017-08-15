@@ -8,7 +8,8 @@ MAINTAINER Pierre Veelen <pierre@pvln.nl>
 
 RUN sudo apt-get update && sudo apt-get install -y \
     apt-utils && \
-    sudo apt-get clean && \ 
+    nano && \                     # text editor
+	sudo apt-get clean && \ 
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 	 
 # =============================
