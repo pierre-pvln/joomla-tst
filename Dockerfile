@@ -140,10 +140,6 @@ RUN { \
     sudo apt-get clean && \ 
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Start MYSQL
-#RUN chown -R mysql /var/lib/mysql
-#RUN chgrp -R mysql /var/lib/mysql
-
 #
 # TODO: include mysql_secure_installation in container 
 #
@@ -156,8 +152,8 @@ RUN { \
 #====
 # Copy mySQL testscript to home directory
 #
-ADD ./site/testscripts /root
-RUN chmod +x /root/*.sh
+ADD ./site/scripts /root
+RUN chmod -R +x /root/*.sh
 
 # =======================
 # END OF INSTALLING MYSQL
