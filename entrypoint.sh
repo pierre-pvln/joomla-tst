@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Start MYSQL
 # inspiration https://stackoverflow.com/questions/9083408/fatal-error-cant-open-and-lock-privilege-tables-table-mysql-host-doesnt-ex
 #
@@ -6,7 +8,11 @@ chgrp -R mysql /var/lib/mysql
 service mysql start
 
 # Create Joomla! entry in database
-
+#
+/usr/bin/mysql -uroot -proot --execute="create database joomla_db;
+    grant all on joomla_db.* to joomla@'localhost' identified by 'joomla';
+    grant all on joomla_db.* to joomla@'%' identified by 'joomla'; 
+    flush privileges;"
 
 # Start apache2
 #
