@@ -177,9 +177,9 @@ RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/$my_apache2_sitename
 #ENTRYPOINT []
 
 ADD ./entrypoint.sh /
-ENTRYPOINT ["entrypoint.sh"]
+#ENTRYPOINT ["entrypoint.sh"]
 
 # By default start up apache in the foreground, override with /bin/bash for interative.
 #CMD /usr/sbin/apache2ctl -D FOREGROUND
 
-#CMD /bin/bash
+CMD /bin/bash
