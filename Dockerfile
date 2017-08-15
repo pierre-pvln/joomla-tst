@@ -7,9 +7,8 @@ MAINTAINER Pierre Veelen <pierre@pvln.nl>
 # ==========================================
 
 RUN sudo apt-get update && sudo apt-get install -y \
-    apt-utils \                # some apt utilities
-    nano \                     # text editor
-    && \                       # start cleanup
+    apt-utils \
+    nano && \
     sudo apt-get clean && \ 
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 	 
@@ -38,9 +37,7 @@ RUN sudo apt-get update && sudo apt-get install -y \
 # Enable apache mods.
 RUN a2enmod rewrite
 
-# Manually set up the apache environment variables
-#
-# TODO: Find a way to use variables from script
+# Set up the apache environment variables
 #
 ENV APACHE_RUN_USER=www-data \
     APACHE_RUN_GROUP=www-data \
@@ -112,16 +109,14 @@ RUN a2enmod php5
 #
 # Inspiration: https://stackoverflow.com/questions/32145650/how-to-set-mysql-username-in-dockerfile/32146887#32146887
 #
-
-##ARG my_mysql_server_root_password='def-root'
+ARG my_mysql_server_root_password='def-root'
 
 #DEBUG
 #=====
 # save info to file
-##RUN echo $my_mysql_server_root_password > /root/test.txt
+RUN echo $my_mysql_server_root_password > /root/my_mysql_server_root_password.txt
 
-#RUN { \
-#        echo mysql-server-5.5 mysql-server/root_password password $my_mysql_server_root_password; \
+#RUN { \ echo mysql-server-5.5 mysql-server/root_password password $my_mysql_server_root_password; \
 #        echo mysql-server-5.5 mysql-server/root_password_again password $my_mysql_server_root_password; \
 #    } | sudo debconf-set-selections \
 #    && sudo apt-get update && sudo apt-get install -y \
@@ -129,7 +124,7 @@ RUN a2enmod php5
 #    sudo apt-get clean && \ 
 #    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Install mysql-server and cleanup afterwards
+#  Install mysql-server and cleanup afterwards
 #
 RUN { \
         echo mysql-server-5.5 mysql-server/root_password password 'root'; \
@@ -150,7 +145,7 @@ RUN { \
 	
 #TEST
 #====
-# Copy mySQL testscript to home directory
+# Copy MySQL scripts to home directory
 #
 ADD ./site/scripts /root
 RUN chmod -R +x /root/*.sh
