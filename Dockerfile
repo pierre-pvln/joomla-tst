@@ -148,7 +148,7 @@ RUN { \
 # Copy MySQL scripts to home directory
 #
 ADD ./site/scripts /root
-RUN chmod -R +x /root/*.sh
+#RUN chmod -R +x /root/*.sh
 
 # =======================
 # END OF INSTALLING MYSQL
