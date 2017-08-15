@@ -8,9 +8,9 @@ MAINTAINER Pierre Veelen <pierre@pvln.nl>
 
 RUN sudo apt-get update && sudo apt-get install -y \
     apt-utils && \
-    nano && \                     # text editor
-	sudo apt-get clean && \ 
-	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    nano && \                     
+    sudo apt-get clean && \ 
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 	 
 # =============================
 # END OF UTILITIES AND DEFAULTS
