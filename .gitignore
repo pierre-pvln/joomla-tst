@@ -12,6 +12,7 @@ git_project_initialize.sh
 # Command scripts not needed in linux 
 ##
 *.cmd
+/scripts/cmd/*
 
 ##
 # windows files 
