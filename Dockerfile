@@ -176,10 +176,10 @@ RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/$my_apache2_sitename
 # Cancel pre-defined start-up instruction and allow us to use our own.
 #ENTRYPOINT []
 
-ADD ./entrypoint.sh /
-#ENTRYPOINT ["entrypoint.sh"]
-
+ADD ./entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["/bin/bash","entrypoint.sh"]
+ 
 # By default start up apache in the foreground, override with /bin/bash for interative.
 #CMD /usr/sbin/apache2ctl -D FOREGROUND
 
-CMD /bin/bash
+#CMD /bin/bash
