@@ -24,8 +24,8 @@ RUN sudo apt-get update && sudo apt-get install -y \
 #
 
 # get variables from commandline and set default values
-ARG my_apache2_servername='def-server-name'
-ARG my_apache2_sitename='def-site-name'
+ARG MY_APACHE2_SERVERNAME='def-server-name'
+ARG MY_APACHE2_SITENAME='def-site-name'
 
 # Install apache2 and cleanup afterwards
 #
@@ -51,21 +51,21 @@ EXPOSE 80
 
 # Copy this repo into place
 #
-ADD ./site/default /var/www/$my_apache2_sitename
+ADD ./site/default /var/www/$MY_APACHE2_SITENAME
 
 # set ownership of files
 #
-RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/$my_apache2_sitename
+RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/$MY_APACHE2_SITENAME
 
 # Update the default apache site with the config we created.
 #
 ADD ./configs/apache2-config.conf /etc/apache2/sites-enabled/000-default.conf
 
-# Change folder to sitename -> change  var/www/site to var/www/$my_apache2_sitename
+# Change folder to sitename -> change  var/www/site to var/www/$MY_APACHE2_SITENAME
 # sed -i "s/TextFrom/TextTo/" inWhichFile
 # \/ is used to escape the / in the file path
 #
-RUN sed -i "s/var\/www\/site/var\/www\/$my_apache2_sitename/" /etc/apache2/sites-enabled/000-default.conf
+RUN sed -i "s/var\/www\/site/var\/www\/$MY_APACHE2_SITENAME/" /etc/apache2/sites-enabled/000-default.conf
 
 # TODO CHANGE WEBSITE SERVERNAME TO PREVENT WARNING
 
@@ -109,15 +109,15 @@ RUN a2enmod php5
 #
 # Inspiration: https://stackoverflow.com/questions/32145650/how-to-set-mysql-username-in-dockerfile/32146887#32146887
 #
-ARG my_mysql_server_root_password='def-root'
+ARG MY_MYSQL_SERVER_ROOT_PASSWORD='def-root'
 
 #DEBUG
 #=====
 # save info to file
-RUN echo $my_mysql_server_root_password > /root/my_mysql_server_root_password.txt
+RUN echo $MY_MYSQL_SERVER_ROOT_PASSWORD > /root/MY_MYSQL_SERVER_ROOT_PASSWORD.txt
 
-#RUN { \ echo mysql-server-5.5 mysql-server/root_password password $my_mysql_server_root_password; \
-#        echo mysql-server-5.5 mysql-server/root_password_again password $my_mysql_server_root_password; \
+#RUN { \ echo mysql-server-5.5 mysql-server/root_password password $MY_MYSQL_SERVER_ROOT_PASSWORD; \
+#        echo mysql-server-5.5 mysql-server/root_password_again password $MY_MYSQL_SERVER_ROOT_PASSWORD; \
 #    } | sudo debconf-set-selections \
 #    && sudo apt-get update && sudo apt-get install -y \
 #        mysql-server && \
@@ -160,11 +160,11 @@ RUN chmod -R +x /root/mysql/*.sh
 
 # Copy kickstart files to website
 #
-ADD ./site/kickstart /var/www/$my_apache2_sitename
+ADD ./site/kickstart /var/www/$MY_APACHE2_SITENAME
 
 # Set ownership of files or kickstart will not work properly
 #
-RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/$my_apache2_sitename
+RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/$MY_APACHE2_SITENAME
 
 # ======================================
 # END OF INSTALLING JOOMLA! RESTORE FILES

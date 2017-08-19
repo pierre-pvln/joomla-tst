@@ -1,6 +1,5 @@
 #!/bin/bash
-mysql_root_pw='root'
+my_mysql_root_pw='root'
 echo "==============="
-echo "mysql root password: " $mysql_root_pw
+echo "mysql root password: " $my_mysql_root_pw
 echo "==============="
-

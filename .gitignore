@@ -6,7 +6,7 @@
 # Git scripts
 ##
 #.gitignore
-git_project_initialize.sh
+#git_project_initialize.sh
 
 ##
 # Command scripts not needed in linux 
