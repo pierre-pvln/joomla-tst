@@ -7,13 +7,13 @@ chown -R mysql /var/lib/mysql
 chgrp -R mysql /var/lib/mysql
 service mysql start
 
-# Create Joomla! entry in database
+# Create Joomla! entries and tables in MySQL database
 #
 /usr/bin/mysql -uroot -proot --execute="create database joomla_db;
     grant all on joomla_db.* to joomla@'localhost' identified by 'joomla';
     grant all on joomla_db.* to joomla@'%' identified by 'joomla'; 
     flush privileges;"
-
+	
 # Start apache2
 #
 /usr/sbin/apache2ctl -D FOREGROUND

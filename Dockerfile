@@ -8,7 +8,8 @@ MAINTAINER Pierre Veelen <pierre@pvln.nl>
 
 RUN sudo apt-get update && sudo apt-get install -y \
     apt-utils \
-    nano && \
+    nano \
+    ssh && \
     sudo apt-get clean && \ 
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 	 
@@ -145,9 +146,9 @@ RUN { \
 	
 #TEST
 #====
-# Copy MySQL scripts to home directory
+# Copy MySQL test scripts to home directory
 #
-ADD ./site/scripts /root
+ADD ./site/scripts/mysql /root/mysql
 RUN chmod -R +x /root/mysql/*.sh
 
 # =======================
@@ -165,6 +166,11 @@ ADD ./site/kickstart /var/www/$MY_APACHE2_SITENAME
 # Set ownership of files or kickstart will not work properly
 #
 RUN chown -Rf $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www/$MY_APACHE2_SITENAME
+
+# Copy archive copy scripts to home directory
+#
+ADD ./site/scripts/archive /root/archive
+RUN chmod -R +x /root/archive/*.sh
 
 # ======================================
 # END OF INSTALLING JOOMLA! RESTORE FILES
