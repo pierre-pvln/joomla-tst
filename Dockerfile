@@ -155,6 +155,29 @@ RUN chmod -R +x /root/mysql/*.sh
 # END OF INSTALLING MYSQL
 # =======================
 
+# =======================
+# START OF INSTALLING FTP
+# =======================
+# Install vsftp and cleanup afterwards
+#
+RUN sudo apt-get update &&  sudo apt-get install -y \
+	 vsftpd && \
+    sudo apt-get clean && \ 
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Update the default vsftp configuration file with this one.
+#
+ADD ./configs/vsftpd-config.conf /etc/vsftpd.conf
+	
+# Expose ftp on port 20 and 21
+#
+EXPOSE 20 21
+
+# =======================
+# END OF INSTALLING FTP
+# =======================
+
+
 # ======================================
 # START OF INSTALLING JOOMLA! RESTORE FILES
 # ======================================
