@@ -14,6 +14,10 @@ service mysql start
     grant all on joomla_db.* to joomla@'%' identified by 'joomla'; 
     flush privileges;"
 	
+# start vsftp
+#
+service vsftpd start
+
 # Start apache2
 #
 /usr/sbin/apache2ctl -D FOREGROUND

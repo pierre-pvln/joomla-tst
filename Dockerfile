@@ -173,6 +173,12 @@ ADD ./configs/vsftpd-config.conf /etc/vsftpd.conf
 #
 EXPOSE 20 21
 
+# Create user
+#
+# SET PASSWORD: echo username:new_password | chpasswd
+#
+RUN sudo adduser -m joomla_user -c "Joomla User" && echo joomla_user:joomla_pw | chpasswd
+
 # =======================
 # END OF INSTALLING FTP
 # =======================
