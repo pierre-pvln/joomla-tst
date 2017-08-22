@@ -13,8 +13,8 @@ service mysql start
     grant all on joomla_db.* to joomla@'localhost' identified by 'joomla';
     grant all on joomla_db.* to joomla@'%' identified by 'joomla'; 
     flush privileges;"
-	
-# start vsftp
+
+# start vsftp service
 #
 service vsftpd start
 
