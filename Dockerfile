@@ -179,6 +179,16 @@ EXPOSE 20 21
 #
 RUN sudo adduser -m joomla_user -c "Joomla User" && echo joomla_user:joomla_pw | chpasswd
 
+#TEST
+#====
+# Copy vsftp test scripts to home directory
+#
+ADD ./site/scripts/vsftp /root/vsftp
+RUN chmod -R +x /root/vsftp/*.sh
+
+
+
+
 # =======================
 # END OF INSTALLING FTP
 # =======================
