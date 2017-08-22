@@ -177,7 +177,7 @@ EXPOSE 20 21
 #
 # SET PASSWORD: echo username:new_password | chpasswd
 #
-RUN sudo adduser -m joomla_user -c "Joomla User" && echo joomla_user:joomla_pw | chpasswd
+RUN sudo useradd -m joomla_user -c "Joomla User" && echo joomla_user:joomla_pw | chpasswd
 
 # =======================
 # END OF INSTALLING FTP
